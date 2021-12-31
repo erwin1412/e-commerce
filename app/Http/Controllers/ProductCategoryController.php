@@ -21,21 +21,28 @@ class ProductCategoryController extends Controller
 
             return DataTables::of($query)
                 ->addColumn('action', function ($item) {
+                    //ngatur edit dan hapus
                     return '
-                        <a class="inline-block border border-gray-700 bg-gray-700 text-white rounded-md px-2 py-1 m-1 transition duration-500 ease select-none hover:bg-gray-800 focus:outline-none focus:shadow-outline" 
+                    <table>
+                    <tr>
+                    <th>
+                  <a class="ce " 
                             href="' . route('dashboard.category.edit', $item->id) . '">
                             Edit
                         </a>
+                        </th>
+                        <th>
                         <form class="inline-block" action="' . route('dashboard.category.destroy', $item->id) . '" method="POST">
-                        <button class="border border-red-500 bg-red-500 text-white rounded-md px-2 py-1 m-2 transition duration-500 ease select-none hover:bg-red-600 focus:outline-none focus:shadow-outline" >
+                        <button class="ch" >
                             Hapus
                         </button>
                             ' . method_field('delete') . csrf_field() . '
-                        </form>';
+                        </form>
+                        </th>
+                        </tr>
+                    </table>';
                 })
-                ->editColumn('price', function ($item) {
-                    return number_format($item->price);
-                })
+
                 ->rawColumns(['action'])
                 ->make();
         }
